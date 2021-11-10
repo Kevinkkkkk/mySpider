@@ -13,7 +13,7 @@ class MyspiderItem(scrapy.Item):
     #老师姓名  //div[@class='main_mask']h2/text()
     name = scrapy.Field()
     #职称 //div[@class='main_mask']/h2/span
-    tittle = scrapy.Field()
+    title = scrapy.Field()
     #入职时间 //div[@class='main_mask']/h3
     date = scrapy.Field()
     #标签 //div[@class='main_bot']/h3

@@ -1,4 +1,7 @@
+
 import scrapy
+#从mySpider的items文件引用MyspiderItem类
+from mySpider.items import MyspiderItem
 
 
 class TycSpider(scrapy.Spider):
@@ -11,15 +14,23 @@ class TycSpider(scrapy.Spider):
 
     def parse(self, response):
         nodeList = response.xpath("//div[@class='main_mask']")
-        for node in nodeList:
-            #
-            name = node.xpath("/h2/text()")
-            #
-            title = node.xpath("/h2/span")
-            #
-            date = node.xpath("/h3")
-            #
-            tip = response.xpath("//div[@class='main_bot']/h3")
-            print(tip)
+        tips = response.xpath("//div[@class='main_bot']/h3/text()")
+        items = []
+        for i, node in enumerate(nodeList):
+            item = MyspiderItem()
+            #.extract()将xpath对象转换为Unicode字符串
+            name = node.xpath("./h2/text()").extract()
+            title = node.xpath("./h2/span/text()").extract()
+            date = node.xpath("./h3/text()").extract()
+            #tip = tips.extract()
+
+            item['name'] = name[0]
+            item['title'] = title[0]
+            item['date'] = date[0]
+            #item['tip'] = tip[i]
+            items.append(item)
+            print(item)
+
+        return items
 
         #pass
