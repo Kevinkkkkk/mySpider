@@ -14,7 +14,6 @@ class TycSpider(scrapy.Spider):
 
     def parse(self, response):
         nodeList = response.xpath("//div[@class='main_mask']")
-        tips = response.xpath("//div[@class='main_bot']/h3/text()")
         items = []
         for i, node in enumerate(nodeList):
             item = MyspiderItem()
@@ -22,15 +21,16 @@ class TycSpider(scrapy.Spider):
             name = node.xpath("./h2/text()").extract()
             title = node.xpath("./h2/span/text()").extract()
             date = node.xpath("./h3/text()").extract()
-            #tip = tips.extract()
 
             item['name'] = name[0]
             item['title'] = title[0]
             item['date'] = date[0]
-            #item['tip'] = tip[i]
-            items.append(item)
-            print(item)
+            #每次循环结果返回给管道pipe文件，然后继续运行循环
+            yield item
+            #items.append(item)
 
-        return items
+
+        #使用return：函数结束，但会结果
+        #return items
 
         #pass

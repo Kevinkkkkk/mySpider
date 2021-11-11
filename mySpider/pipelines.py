@@ -9,6 +9,7 @@ from itemadapter import ItemAdapter
 
 #管道，储存数据
 class MyspiderPipeline:
+
     def process_item(self, item, spider):
         #todo
         return item
