@@ -26,6 +26,7 @@ class TycSpider(scrapy.Spider):
             item['title'] = title[0]
             item['date'] = date[0]
             #每次循环结果返回给管道pipe文件，然后继续运行循环
+            #如果不写管道文件，直接用 scrapy crawl xxxx -o xxxx.csv
             yield item
             #items.append(item)
 
